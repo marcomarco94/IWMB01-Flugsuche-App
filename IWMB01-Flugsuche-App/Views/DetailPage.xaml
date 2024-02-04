@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="IWMB01_Flugsuche_App.Views.DetailPage"
+    xmlns:model="clr-namespace:IWMB01_Flugsuche_App.Models"
+    xmlns:viewmodel="clr-namespace:IWMB01_Flugsuche_App.ViewModels"
+    x:DataType="viewmodel:DetailPageViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="*, Auto"
+        RowDefinitions="Auto, Auto, Auto, Auto"
+        ColumnSpacing="5">
+
+        <Label
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Margin="20"
+            FontSize="Large"
+            Text="Flugdetails" />
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="20, 10, 20, 20"
+            Text="Zurück"
+            Command="{Binding GoBackCommand}" />
+        
+        <CollectionView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding SelectedSchedule.Flight}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Flight">
+                    <StackLayout
+                        Margin="20">
+                        <Grid
+                            ColumnDefinitions="Auto, Auto"
+                            RowDefinitions="*, *, *, *">
+                                <Label
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Margin="0, 0, 10, 0"
+                                Text="{Binding MarketingCarrier.AirlineID, StringFormat='Fluggesellschaft: {0}'}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Text="{Binding MarketingCarrier.FlightNumber, StringFormat='Gesellschaftsflugnr.: {0}'}" />
+                                <Label
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="1"
+                                    Text="{Binding Departure.AirportCode, StringFormat='Flughafen: {0}'}" />
+                                <Label
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="2"
+                                    Text="{Binding Departure.ScheduledTimeLocal.DateTime, StringFormat='Abflug: {0}'}" />
+                                <Label
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="3"
+                                    Text="{Binding Arrival.ScheduledTimeLocal.DateTime, StringFormat='Ankunft: {0}'}" />
+                                </Grid>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+
+    </Grid>
+
+</ContentPage>

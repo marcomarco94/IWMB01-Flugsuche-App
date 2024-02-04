@@ -1,0 +1,10 @@
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using System.Collections.ObjectModel;
+global using System.Diagnostics;
+global using IWMB01_Flugsuche_App.Views;
+global using IWMB01_Flugsuche_App.ViewModels;
+global using IWMB01_Flugsuche_App.Models;
+global using IWMB01_Flugsuche_App.Services;
+global using Microsoft.Extensions.Configuration;
+global using System.Globalization;

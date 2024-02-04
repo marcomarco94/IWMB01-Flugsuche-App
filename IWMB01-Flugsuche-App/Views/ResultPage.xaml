@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="IWMB01_Flugsuche_App.Views.ResultPage"
+    xmlns:model="clr-namespace:IWMB01_Flugsuche_App.Models"
+    xmlns:viewmodel="clr-namespace:IWMB01_Flugsuche_App.ViewModels"
+    x:DataType="viewmodel:ResultPageViewModel"
+    xmlns:converters="clr-namespace:IWMB01_Flugsuche_App.Converters"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <converters:LastArrivalConverter x:Key="LastArrivalConverter" />
+        <converters:FlightStopsConverter x:Key="FlightStopsConverter" />
+    </ContentPage.Resources>
+
+    <Grid
+        ColumnDefinitions="*, Auto"
+        RowDefinitions="Auto, Auto, Auto, Auto"
+        ColumnSpacing="5">
+
+        <Label
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Margin="20"
+            FontSize="Large"
+            Text="Geplante Flüge" />
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="20, 10, 20, 0"
+            FontAttributes="Bold"
+            Text="Nur Direktflüge" />
+
+        <CheckBox
+            Grid.Row="1"
+            Grid.Column="1"
+            IsChecked="{Binding DirectFlightsOnly}"
+            Margin="20, 10, 20, 0" />
+
+        <Button
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="20, 10, 20, 20"
+            Text="Zurück"
+            Command="{Binding GoBackCommand}" />
+
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="20, 8, 20, 20"
+            Text="Details anzeigen"
+            Command="{Binding NavigateToDetailsCommand}" />
+
+        <CollectionView
+            Grid.Row="3"
+            Grid.ColumnSpan="3"
+            ItemsSource="{Binding ScheduledFlights}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedSchedule}">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Schedule">
+                    <StackLayout
+                        Margin="20">
+                        <Label
+                            Text="{Binding Flight[0].Departure.ScheduledTimeLocal.DateTime, StringFormat='Abflug: {0}'}" />
+                        <Label
+                            Text="{Binding Flight, Converter={StaticResource LastArrivalConverter}, StringFormat='Ankunft: {0}'}" />
+                        <Label
+                            Text="{Binding Flight, Converter={StaticResource FlightStopsConverter}, StringFormat='Stops: {0}'}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

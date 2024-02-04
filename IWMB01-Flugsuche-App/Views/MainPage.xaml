@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="IWMB01_Flugsuche_App.Views.MainPage"
+    xmlns:viewmodel="clr-namespace:IWMB01_Flugsuche_App.ViewModels"
+    x:DataType="viewmodel:MainPageViewModel">
+    
+    <ScrollView>
+        <Grid
+            ColumnDefinitions="Auto, *, Auto"
+            ColumnSpacing="20"
+            RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnGridTapped" />
+            </Grid.GestureRecognizers>
+            
+            <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Margin="20"
+                FontSize="Large"
+                Text="Willkomen zur Flugsuche-App!" />
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="20, 30,0,0"
+                FontAttributes="Bold"
+                Text="Startflughafen" />
+
+            <SearchBar x:Name="StartSearchBar"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="20"
+                       Placeholder="3 Zeichen IATA / Adresse"
+                       Text="{Binding StartAirportSearchText}"
+                       SearchCommand="{Binding SearchStartAirportsCommand}" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="20, 5,5,0"
+                Text="Stadt:" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0, 5, 20, 0"
+                Text="{Binding StartAirportCity}" />
+
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="20, 5,5,20"
+                Text="IATA Code:" />
+
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0, 5, 20, 20"
+                Text="{Binding StartAirportCode}" />
+
+            <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="20, 30, 0 , 0"
+                FontAttributes="Bold"
+                Text="Zielflughafen" />
+
+            <SearchBar
+                x:Name="TargetSearchBar"
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="20"
+                Placeholder="3 Zeichen IATA / Stadt"
+                Text="{Binding TargetAirportSearchText}"
+                SearchCommand="{Binding SearchTargetAirportCommand}" />
+
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                Margin="20, 5,5,0"
+                Text="Stadt:" />
+
+            <Label
+                Grid.Row="5"
+                Grid.Column="1"
+                Margin="0, 5, 20, 0"
+                Text="{Binding TargetAirportCity}" />
+
+            <Label
+                Grid.Row="6"
+                Grid.Column="0"
+                Margin="20, 5,5,20"
+                Text="IATA Code:" />
+
+            <Label
+                Grid.Row="6"
+                Grid.Column="1"
+                Margin="0, 5, 20, 20"
+                Text="{Binding TargetAirportCode}" />
+
+            <Label
+                Grid.Row="7"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Margin="20, 15, 5, 30"
+                Text="Wunschdatum:" />
+
+            <DatePicker
+                Grid.Row="7"
+                Grid.Column="1"
+                Margin="0, 5, 20, 30"
+                Date="{Binding SelectedDate}"
+                HorizontalOptions="Center"
+                Format="D" />
+
+            <Button
+                Grid.Row="8"
+                Grid.ColumnSpan="2"
+                Margin="20"
+                Text="Flüge anzeigen"
+                IsEnabled="{Binding IsNotBusy}"
+                Command="{Binding NavigateCommand}" />
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
